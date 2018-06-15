@@ -1,0 +1,2 @@
+# GoBang
+a go game
