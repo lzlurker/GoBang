@@ -5,6 +5,11 @@ import javax.swing.*;
 
 public class MainFrame extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private ChessBoard chessBoard;
 	private JPanel toolBar;
 	private JButton startB;
@@ -30,7 +35,8 @@ public class MainFrame extends JFrame {
 		menuBar.add(sysMenu);
 		setJMenuBar(menuBar);
 		
-		setSize(600,650);
+		//setSize(600,650);
+		pack();
 		
 		MyItemListener lis = new MyItemListener();
 		
@@ -61,17 +67,16 @@ public class MainFrame extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			Object obj = e.getSource();
 			if(obj==MainFrame.this.startMenuItem || obj==startB){
 				System.out.println("restarting....");
-				ChessBoard.Restart();
+				chessBoard.Restart();
 			}
 			else if(obj== exitB || obj == exitMenuItem){
 				System.exit(0);
 			}
 			else if(obj== backB || obj == backMenuItem){
-				ChessBoard.goBack();
+				chessBoard.goBack();
 			}
 		}
 		

@@ -4,6 +4,11 @@ import javax.swing.*;
 
 
 public class ChessBoard extends JPanel implements MouseListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final int MARGIN = 30;
 	public static final int GRID_SPAN = 25;
 	public static final int ROWS = 30;
@@ -23,7 +28,6 @@ public class ChessBoard extends JPanel implements MouseListener{
 			
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				// TODO Auto-generated method stub
 				int x1 = (e.getX()-MARGIN+GRID_SPAN/2)/GRID_SPAN;
 				int y1 = (e.getY()-MARGIN+GRID_SPAN/2)/GRID_SPAN;
 				if(x1<0||x1>ROWS||y1<0||y1>COLS||gameOver||findChess(x1,y1)){
@@ -39,7 +43,6 @@ public class ChessBoard extends JPanel implements MouseListener{
 			
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -71,7 +74,6 @@ public class ChessBoard extends JPanel implements MouseListener{
 	}
 
 	private boolean findChess(int x1, int y1) {
-		// TODO Auto-generated method stub
 		for (Pointe c:chesslist){
 			if(c!=null&&c.getX() == x1 && c.getY()==y1){
 				return true;
@@ -82,25 +84,21 @@ public class ChessBoard extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		if(gameOver){
 			return;
 		}
@@ -129,7 +127,6 @@ public class ChessBoard extends JPanel implements MouseListener{
 	}
 
 	private boolean isWin() {
-		// TODO Auto-generated method stub
 		int continueCount = 1;
 		//Horizontal Judgment
 		for (int x=xIndex-1;x>=0;x--){
@@ -232,7 +229,6 @@ public class ChessBoard extends JPanel implements MouseListener{
 	}
 
 	private Pointe getChess(int xIndex, int yIndex, Color color) {
-		// TODO Auto-generated method stub
 		for(Pointe c:chesslist){
 			if(c!=null&&c.getX()==xIndex&&c.getY()==yIndex&&c.getColor()==color){
 				return c;
@@ -243,17 +239,36 @@ public class ChessBoard extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	public static void Restart() {
-		// TODO Auto-generated method stub
-		
+	public void Restart() {
+		for (int i=0;i<chesslist.length;i++){
+			chesslist[i]=null;
+		}
+		isBlack=true;
+		gameOver=false;
+		chessCount=0;
+		repaint();
 	}
 
-	public static void goBack() {
-		// TODO Auto-generated method stub
+	public void goBack() {
+		if(chessCount==0){
+			return;
+		}
+		chesslist[chessCount-1]=null;
+		chessCount--;
+		if(chessCount>0){
+			xIndex=chesslist[chessCount-1].getX();
+			yIndex=chesslist[chessCount-1].getY();
+			
+		}
+		isBlack=!isBlack;
+		repaint();
+	}
+	
+	public Dimension getPreferredSize(){
+		return new Dimension(MARGIN*2+GRID_SPAN*COLS, MARGIN*2+GRID_SPAN*ROWS);
 		
 	}
 
